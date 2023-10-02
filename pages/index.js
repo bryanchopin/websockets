@@ -76,9 +76,14 @@ export default function Home() {
 
   useEffect(() => {
     // Conectarse al servidor WebSocket
-    const newSocket = io(process.env.BASE_URL, {
+    // const newSocket = io(process.env.BASE_URL, {
+    //   path: "/api/socket",
+    // });
+
+    const newSocket = io('https://websockets-xi.vercel.app/', {
       path: "/api/socket",
     });
+
 
     newSocket.on("welcome", (message) => {
       console.log(message);
