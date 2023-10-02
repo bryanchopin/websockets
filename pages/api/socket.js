@@ -49,6 +49,16 @@
 
 import { Server } from "socket.io";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+const sharedState = {
+  value: 10,
+};
+
 export default async function handler(req, res) {
   if (!res.socket.server.io) {
     console.log("New Socket.io server...");
@@ -84,7 +94,3 @@ export default async function handler(req, res) {
   }
   res.end();
 }
-
-const sharedState = {
-  value: 10,
-};

@@ -76,14 +76,9 @@ export default function Home() {
 
   useEffect(() => {
     // Conectarse al servidor WebSocket
-    // const newSocket = io(process.env.BASE_URL, {
-    //   path: "/api/socket",
-    // });
-
-    const newSocket = io('https://websockets-xi.vercel.app/', {
+    const newSocket = io(process.env.NEXT_PUBLIC_BASE_URL, {
       path: "/api/socket",
     });
-
 
     newSocket.on("welcome", (message) => {
       console.log(message);
@@ -101,13 +96,18 @@ export default function Home() {
 
     newSocket.on("disconnect", () => {
       console.log("Cliente WebSocket desconectado");
+      setSocket(null); // Establecer el socket en null cuando se desconecta
     });
 
     // Almacenar el socket en el estado
     setSocket(newSocket);
 
     // Desconectar el socket al desmontar si existe
-    if (newSocket) return () => newSocket.disconnect();
+    return () => {
+      if (newSocket) {
+        newSocket.disconnect();
+      }
+    };
   }, []);
 
   // Función para enviar un nuevo valor al servidor
