@@ -14,7 +14,7 @@
 //   if (!res.socket.server.io) {
 //     console.log("New Socket.io server...");
 
-//     // adapt Next's net Server to http Server
+//     // Adaptar el servidor net de Next a un servidor HTTP
 //     const httpServer = res.socket.server;
 //     const io = new ServerIO(httpServer, {
 //       path: "/api/socket",
@@ -29,11 +29,10 @@
 //       socket.on("changeValue", (newValue) => {
 //         // Actualiza el valor compartido
 //         sharedState.value = newValue;
+//         console.log(`Valor actualizado a: ${newValue}`);
 
 //         // Emite el nuevo valor a todos los clientes conectados
 //         io.emit("updateValue", sharedState.value);
-
-//         console.log(`Valor actualizado a: ${sharedState.value}`);
 //       });
 
 //       // Maneja la desconexión de un cliente WebSocket
@@ -48,17 +47,7 @@
 // }
 
 
-import { Server as ServerIO } from "socket.io";
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const sharedState = {
-  value: 10,
-};
+import { Server } from "socket.io";
 
 export default async function handler(req, res) {
   if (!res.socket.server.io) {
@@ -66,7 +55,7 @@ export default async function handler(req, res) {
 
     // Adaptar el servidor net de Next a un servidor HTTP
     const httpServer = res.socket.server;
-    const io = new ServerIO(httpServer, {
+    const io = new Server(httpServer, {
       path: "/api/socket",
     });
 
@@ -95,3 +84,7 @@ export default async function handler(req, res) {
   }
   res.end();
 }
+
+const sharedState = {
+  value: 10,
+};
