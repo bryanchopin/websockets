@@ -21,7 +21,7 @@ export default function Home() {
     //   },
     // });
 
-    const newSocket = io.connect(process.env.BASE_URL, {
+    const newSocket = io.connect("/", {
       path: "/api/socket",
     });
 
