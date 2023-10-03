@@ -76,11 +76,15 @@ export default function Home() {
 
   useEffect(() => {
     // Conectarse al servidor WebSocket
-    const newSocket = io({
+    // const newSocket = io({
+    //   path: "/api/socket",
+    //   cors: {
+    //     origin: "*",
+    //   },
+    // });
+
+    const newSocket = io.connect(process.env.BASE_URL, {
       path: "/api/socket",
-      cors: {
-        origin: "*",
-      },
     });
 
     newSocket.on("welcome", (message) => {
