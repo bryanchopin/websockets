@@ -21,7 +21,7 @@ export default function Home() {
     //   },
     // });
 
-    const newSocket = io.connect("https://websockets-xi.vercel.app/", {
+    const newSocket = io.connect(process.env.BASE_URL, {
       path: "/api/socket",
     });
 
