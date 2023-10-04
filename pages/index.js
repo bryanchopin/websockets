@@ -21,7 +21,11 @@ export default function Home() {
     //   },
     // });
 
-    const newSocket = io.connect(process.env.BASE_URL, {
+    // const newSocket = io.connect('https://websockets-xi.vercel.app/', {
+    //   path: "/api/socket",
+    // });
+
+    const newSocket = io('https://websockets-xi.vercel.app/', {
       path: "/api/socket",
     });
 
