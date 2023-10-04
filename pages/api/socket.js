@@ -139,7 +139,7 @@ export default async function handler(req, res) {
 
     const ACCEPTED_ORIGINS = [
       'http://localhost:3000',
-      'https://websockets-xi.vercel.app/'
+      'https://websockets-xi.vercel.app/api/socket'
     ];
     const origin = req.headers.origin;
     
