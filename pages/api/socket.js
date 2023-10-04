@@ -116,10 +116,47 @@ export default async function handler(req, res) {
   if (!ioInstance) {
     console.log("Configurando el servidor WebSocket...");
 
+    // const ACCEPTED_ORIGINS = [
+    //   'http://localhost:3000',
+    //   'https://websockets-xi.vercel.app/'
+    // ];
+    // const origin = req.headers.origin;
+
+    // if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+    //   // Verifica si origin es undefined y, si lo es, establece el valor a '*' para permitir cualquier origen.
+    //   const allowedOrigin = origin || '*';
+    //   res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    // }
+
+    // // Adaptar el servidor net de Next a un servidor HTTP
+    // const httpServer = res.socket.server;
+    // ioInstance = new Server(httpServer, {
+    //   path: "/api/socket",
+    //   cors: {
+    //     origin: "*",
+    //   },
+    // });
+
+    const ACCEPTED_ORIGINS = [
+      'http://localhost:3000',
+      'https://websockets-xi.vercel.app/'
+    ];
+    const origin = req.headers.origin;
+    
+    if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+      // Verifica si origin es undefined y, si lo es, establece el valor a '*' para permitir cualquier origen.
+      const allowedOrigin = origin || '*';
+      res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    }
+    
     // Adaptar el servidor net de Next a un servidor HTTP
     const httpServer = res.socket.server;
     ioInstance = new Server(httpServer, {
       path: "/api/socket",
+      cors: {
+        origin: ACCEPTED_ORIGINS, // Utiliza la lista de orígenes permitidos
+        methods: ["GET", "POST"], // Define los métodos permitidos
+      },
     });
 
     ioInstance.on("connection", (socket) => {
