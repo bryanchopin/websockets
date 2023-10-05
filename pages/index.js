@@ -94,8 +94,12 @@ export default function Home() {
 
   useEffect(() => {
     // connect to socket server
-      const socket = io('wss://websockets-xi.vercel.app/', {
-      // const socket = io('ws://localhost:3000', {
+    // const socket = io('https://websockets-xi.vercel.app/', {
+    //   const socket = io('http://localhost:3000', {
+    //   path: "/api/socket",
+    // });
+
+    const socket = io(process.env.SOCKET_SERVER_URL, {
       path: "/api/socket",
     });
 

@@ -88,7 +88,6 @@
 
 
 import { Server as ServerIO } from "socket.io";
-import { Server as NetServer } from "http";
 
 export const config = {
   api: {
